@@ -13,4 +13,4 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Echo Message
-        run: echo "하이" > test.txt
+        run: echo "하이" > /home/test/test.txt
