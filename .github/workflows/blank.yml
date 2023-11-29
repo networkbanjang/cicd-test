@@ -12,9 +12,14 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      - name: today_data_dump
-        run: export date=$(date "+%Y%m%d")
-             mysqldump -u root -p temp > /home/test/${date}_backup.sql 
+      - name: Dump MySQL database
+        run: |
+          export MYSQL_DATABASE_NAME=temp  
+          export MYSQL_USER=${{ secrets.MYSQL_ID }} 
+          export MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }}
+          export DATE=$(date "+%Y%m%d")
+
+          mysqldump -u $MYSQL_USER -p$MYSQL_PASSWORD $MYSQL_DATABASE_NAME > $DATE_backup.sql
       - name: S3 sync 
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
