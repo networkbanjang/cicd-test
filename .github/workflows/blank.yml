@@ -12,5 +12,14 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      - name: Echo Message
-        run: echo "하이" > /home/test/test.txt
+      - name: today_data_dump
+        run: export date=$(date "+%Y%m%d")
+             mysqldump -u root -p temp > /home/test/${date}_backup.sql 
+      - name: S3 sync 
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
+        run: |
+          aws s3 sync ./build s3://s3backup-test
+      - name: End
+        run: rm -f /home/test/${date}_backup.sql
