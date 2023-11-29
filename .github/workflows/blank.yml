@@ -28,6 +28,6 @@ jobs:
           aws-region: ap-northeast-2
       - name: Sync with S3
         run: |
-          aws s3 sync ./build s3://s3backup-test
+          aws s3 sync /home/test/$DATE_backup.sql s3://s3backup-test
       - name: End
         run: rm -f /home/test/${date}_backup.sql
