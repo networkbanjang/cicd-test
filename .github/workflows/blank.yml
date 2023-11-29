@@ -28,6 +28,7 @@ jobs:
           aws-region: ap-northeast-2
       - name: Sync with S3
         run: |
+          export DATE=$(date "+%Y%m%d")
           aws s3 sync /home/test/${DATE}_backup.sql s3://s3backup-test
       - name: End
         run: rm -f /home/test/${DATE}_backup.sql
