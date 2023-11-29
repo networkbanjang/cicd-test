@@ -18,6 +18,10 @@ jobs:
           export MYSQL_USER=${{ secrets.MYSQL_ID }} 
           export MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }}
           export DATE=$(date "+%Y%m%d")
+          echo $MYSQL_DATABASE_NAME
+          echo $DATE
+          echo $MYSQL_PASSWORD
+          echo $MYSQL_USER
 
           mysqldump -u $MYSQL_USER -p$MYSQL_PASSWORD $MYSQL_DATABASE_NAME > ${DATE}_backup.sql
       - name: Configure AWS credentials
