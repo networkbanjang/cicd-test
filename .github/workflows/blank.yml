@@ -19,7 +19,7 @@ jobs:
           export MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }}
           export DATE=$(date "+%Y%m%d")
 
-          mysqldump -u $MYSQL_USER -p$MYSQL_PASSWORD $MYSQL_DATABASE_NAME > $DATE_backup.sql
+          mysqldump -u $MYSQL_USER -p$MYSQL_PASSWORD $MYSQL_DATABASE_NAME > ${DATE}_backup.sql
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -28,6 +28,6 @@ jobs:
           aws-region: ap-northeast-2
       - name: Sync with S3
         run: |
-          aws s3 sync /home/test/$DATE_backup.sql s3://s3backup-test
+          aws s3 sync /home/test/${DATE}_backup.sql s3://s3backup-test
       - name: End
-        run: rm -f /home/test/${date}_backup.sql
+        run: rm -f /home/test/${DATE}_backup.sql
