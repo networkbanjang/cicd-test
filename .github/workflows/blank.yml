@@ -19,7 +19,9 @@ jobs:
           export MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }}
           export DATE=$(date "+%Y%m%d")
 
-          mysqldump -u $MYSQL_USER -p${MYSQL_PASSWORD} ${MYSQL_DATABASE_NAME} > /home/test/backup/${DATE}_backup.sql
+          mysqldump -u $MYSQL_USER -p${MYSQL_PASSWORD} ${MYSQL_DATABASE_NAME} > /home/test/${DATE}_backup.sql
+          zip -P ${MYSQL_PASSWORD} /home/test/${DATE}_backup.zip /home/test/${DATE}_backup.sql
+          mv /home/test/${DATE}_backup.zip /home/test/backup/${DATE}_backup.zip
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
