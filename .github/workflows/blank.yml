@@ -33,4 +33,6 @@ jobs:
           export DATE=$(date "+%Y%m%d")
           aws s3 sync /home/test/backup s3://s3backup-test
       - name: End
-        run: rm -f /home/test/${DATE}_backup.sql
+        run: |
+          export DATE=$(date "+%Y%m%d")
+          rm -rf /home/test/${DATE}_backup.sql
