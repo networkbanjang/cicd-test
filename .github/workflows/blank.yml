@@ -20,7 +20,6 @@ jobs:
           export DATE=$(date "+%Y%m%d")
           echo $MYSQL_DATABASE_NAME
           echo $DATE
-          echo $MYSQL_PASSWORD
           echo $MYSQL_USER
 
           mysqldump -u $MYSQL_USER -p${MYSQL_PASSWORD} ${MYSQL_DATABASE_NAME} > ${DATE}_backup.sql
